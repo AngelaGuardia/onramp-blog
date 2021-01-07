@@ -21,7 +21,10 @@ Other:
 - xxx
 
 ### Local setup
--
+- Run `npm install`
+- Add a `.env` file to the root directory and the following ENV variables to it:
+- xxx env variable
+- 
 
 ### Feature Requirements:
 
