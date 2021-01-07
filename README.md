@@ -32,6 +32,11 @@ Other:
     - `OKTA_ORG_URL=https://{yourOktaDomain}` (get Okta keys [here](https://developer.okta.com/))
     - `OKTA_CLIENT_ID={yourClientId}`
     - `OKTA_CLIENT_SECRET={yourClientSecret}`
+    - `PGHOST=localhost``
+    - `PGUSER=postgres``
+    - `PGDATABASE=postgres``
+    - `PGPASSWORD=onrampblog``
+    - `PGPORT=5433``
 
 ### Feature Requirements:
 
