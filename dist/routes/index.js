@@ -4,7 +4,8 @@ exports.register = void 0;
 const register = (app) => {
     const oidc = app.locals.oidc;
     app.get("/", (req, res) => {
-        res.render("index");
+        const user = req.userContext ? req.userContext.userinfo : null;
+        res.render("index", { isAuthenticated: req.isAuthenticated(), user });
     });
     app.get("/login", oidc.ensureAuthenticated(), (req, res) => {
         res.redirect("/posts");
@@ -14,7 +15,8 @@ const register = (app) => {
         res.redirect("/");
     });
     app.get("/posts", oidc.ensureAuthenticated(), (req, res) => {
-        res.render("posts");
+        const user = req.userContext ? req.userContext.userinfo : null;
+        res.render("posts", { isAuthenticated: req.isAuthenticated(), user });
     });
 };
 exports.register = register;
