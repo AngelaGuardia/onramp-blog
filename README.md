@@ -4,6 +4,8 @@
 
 Onramp blog is a Fullstack application that allows users to login, logout, CRUD blog posts, favorite posts, and search posts by date and title.
 
+Given that this is my first TypeScript, Node.js/Express.js, Vue.js app, I followed this [Okta tutorial](https://developer.okta.com/blog/2018/11/15/node-express-typescript) closely for the initial setup and the authentication portions of this application.
+
 ### Techstack:
 
 Frontend:
@@ -18,12 +20,14 @@ Backend:
 
 Other:
 - Postgres database
-- xxx
+- Okta
 
 ### Local setup
 - Run `npm install`
 - Add a `.env` file to the root directory and the following ENV variables to it:
     - `NODE_ENV=development`
+    - `HOST_URL=http://localhost:8080`
+    - `SESSION_SECRET=OnRamp`
     - `SERVER_PORT=8080`
     - `OKTA_ORG_URL=https://{yourOktaDomain}` (get Okta keys [here](https://developer.okta.com/))
     - `OKTA_CLIENT_ID={yourClientId}`
