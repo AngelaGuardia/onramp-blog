@@ -20,5 +20,8 @@
   "homepage": "https://github.com/AngelaGuardia/onramp-blog#readme",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.3"
   }
 }
