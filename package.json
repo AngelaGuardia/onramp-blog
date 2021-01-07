@@ -1,0 +1,24 @@
+{
+  "name": "onramp-blog",
+  "version": "1.0.0",
+  "description": "Onramp Blog",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AngelaGuardia/onramp-blog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AngelaGuardia/onramp-blog/issues"
+  },
+  "homepage": "https://github.com/AngelaGuardia/onramp-blog#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
