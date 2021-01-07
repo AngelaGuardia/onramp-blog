@@ -8,9 +8,26 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
+    <%#- include('partials/nav') %>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo"><% if ( user ) { %><%= user.name %>'s <% } %>Onramp Blog</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/posts">My Posts</a></li>
+                <li><a href="/favorites">My Favorites</a></li>
+                <% if ( isAuthenticated ) { %>
+                <li><a href="/logout">Logout</a></li>
+                <% } %>
+                <% if ( !isAuthenticated ) { %>
+                <li><a href="/login">Login</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
         <h1 class="header">Onramp Blog</h1>
-        <a class="btn" href="/posts"><i class="material-icons right">arrow_forward</i>Get started!</a>
+        <a class="btn" href="/posts"><i class="material-icons right">arrow_forward</i>Login!</a>
     </div>
 </body>
 </html>
