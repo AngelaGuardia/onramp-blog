@@ -23,8 +23,11 @@ Other:
 ### Local setup
 - Run `npm install`
 - Add a `.env` file to the root directory and the following ENV variables to it:
-- xxx env variable
-- 
+    - `NODE_ENV=development`
+    - `SERVER_PORT=8080`
+    - `OKTA_ORG_URL=https://{yourOktaDomain}` (get Okta keys [here](https://developer.okta.com/))
+    - `OKTA_CLIENT_ID={yourClientId}`
+    - `OKTA_CLIENT_SECRET={yourClientSecret}`
 
 ### Feature Requirements:
 
