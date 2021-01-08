@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS posts (
     , title varchar(50) NOT NULL
     , content text NOT NULL
     , created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    , updated_at TIMESTAMP(3) NOT NULL
+    , updated_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Drops favorites table
@@ -20,5 +20,5 @@ CREATE TABLE IF NOT EXISTS favorites (
     , user_id varchar(50) NOT NULL
     , post_id varchar(50) NOT NULL
     , created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    , updated_at TIMESTAMP(3) NOT NULL
+    , updated_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
