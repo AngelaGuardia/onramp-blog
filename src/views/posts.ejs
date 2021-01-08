@@ -25,8 +25,59 @@
       </div>
   </nav>
   <div class="container">
-    <h1 class="header">All my posts</h1>
-    <p>Your future list of posts!</p>
-  </div>
-</body>
+        <div id="app">
+            <div class="row" id="guitarList">
+                <h3>Post list</h3>
+                <table v-if="hazGuitars">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Publish Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="post in posts">
+                            <td>{{ post.title }}</td>
+                            <td>{{ post.content }}</td>
+                            <td>{{ post.updatedAtl }}</td>
+                            <td>
+                                <button id="postDelete" @click="confirmDeletePost(post.id)" class="btn-small"><i class="material-icons right">delete</i>Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p v-if="noPosts">No posts yet!</p>
+            </div>
+            <div class="row" id="postEdit">
+                <h3>Add a post</h3>
+                <form class="col s12" @submit.prevent="addPost">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input v-model="title" ref="title" placeholder="Top 10 Programming Languages 2021" id="title" type="text" class="validate">
+                            <label for="brand">Title</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input v-model="content" ref="content" placeholder="JS TS Python Ruby..." id="content" type="text" class="validate">
+                            <label for="brand">Content</label>
+                        </div>
+                    </div>
+                    <button id="postEditSubmit" class="btn" type="submit"><i class="material-icons right">send</i>Submit</button>
+                </form>
+            </div>
+            <div id="deleteConfirm" ref="deleteConfirm" class="modal">
+                <div class="modal-content">
+                    <h4>Confirm delete</h4>
+                    <p>Delete {{ selectedPost }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button @click="deletePost(selectedPostId)" class="modal-close btn-flat">Ok</button>
+                    <button class="modal-close btn-flat">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+  </body>
 </html>
