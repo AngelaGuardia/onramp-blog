@@ -28,72 +28,66 @@ const vue_1 = __importDefault(require("vue"));
 // tslint:disable-next-line no-unused-expression
 new vue_1.default({
     computed: {
-        hazGuitars() {
-            return this.isLoading === false && this.guitars.length > 0;
+        hazPosts() {
+            return this.isLoading === false && this.posts.length > 0;
         },
-        noGuitars() {
-            return this.isLoading === false && this.guitars.length === 0;
+        noPostss() {
+            return this.isLoading === false && this.posts.length === 0;
         }
     },
     data() {
         return {
-            brand: "",
-            color: "",
-            guitars: [],
+            content: "",
             isLoading: true,
-            model: "",
-            selectedGuitar: "",
-            selectedGuitarId: 0,
-            year: ""
+            selectedPost: "",
+            selectedPostId: 0,
+            title: "",
+            updatedAt: "",
         };
     },
     el: "#app",
     methods: {
-        addGuitar() {
-            const guitar = {
-                brand: this.brand,
-                color: this.color,
-                model: this.model,
-                year: this.year
+        addPost() {
+            const post = {
+                content: this.content,
+                title: this.title,
             };
             axios_1.default
-                .post("/api/guitars/add", guitar)
+                .post("/api/posts", post)
                 .then(() => {
-                this.$refs.year.focus();
-                this.brand = "";
-                this.color = "";
-                this.model = "";
-                this.year = "";
-                this.loadGuitars();
+                this.$refs.title.focus();
+                this.content = "";
+                this.updatedAt = "";
+                this.loadPosts();
             })
                 .catch((err) => {
                 // tslint:disable-next-line:no-console
                 console.log(err);
             });
         },
-        confirmDeleteGuitar(id) {
-            const guitar = this.guitars.find((g) => g.id === id);
-            this.selectedGuitar = `${guitar.year} ${guitar.brand} ${guitar.model}`;
-            this.selectedGuitarId = guitar.id;
+        confirmDeletePost(id) {
+            const post = this.posts.find((g) => g.id === id);
+            this.selectedPost = `${post.title} ${post.content}`;
+            this.selectedPostId = post.id;
             const dc = this.$refs.deleteConfirm;
             const modal = M.Modal.init(dc);
             modal.open();
         },
-        deleteGuitar(id) {
+        deletePost(id) {
             axios_1.default
-                .delete(`/api/guitars/remove/${id}`)
-                .then(this.loadGuitars)
+                .delete(`/api/posts/${id}`)
+                .then(this.loadPosts)
                 .catch((err) => {
                 // tslint:disable-next-line:no-console
                 console.log(err);
             });
         },
-        loadGuitars() {
+        loadPosts() {
             axios_1.default
-                .get("/api/guitars/all")
+                .get("/api/posts")
                 .then((res) => {
                 this.isLoading = false;
-                this.guitars = res.data;
+                this.posts = res.data;
             })
                 .catch((err) => {
                 // tslint:disable-next-line:no-console
@@ -102,7 +96,7 @@ new vue_1.default({
         }
     },
     mounted() {
-        return this.loadGuitars();
+        return this.loadPosts();
     }
 });
 //# sourceMappingURL=main.js.map
