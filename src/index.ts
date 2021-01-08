@@ -8,6 +8,7 @@ dotenv.config();
 
 const port = process.env.SERVER_PORT;
 const app = express();
+app.use( express.json() );
 
 // setup EJS
 app.set( "views", path.join( __dirname, "views" ) );
