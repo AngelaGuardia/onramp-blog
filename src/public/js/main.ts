@@ -19,7 +19,7 @@ new Vue( {
             selectedPost: "",
             selectedPostId: 0,
             title: "",
-            updatedAt: "",
+            updated_at: "",
         };
     },
     el: "#app",
@@ -27,14 +27,13 @@ new Vue( {
         addPost() {
             const post = {
                 content: this.content,
-                title: this.title,
+                title: this.title
             };
             axios
                 .post( "/api/posts", post )
                 .then( () => {
                     this.$refs.title.focus();
                     this.content = "";
-                    this.updatedAt = "";
                     this.loadPosts();
                 } )
                 .catch( ( err: any ) => {
