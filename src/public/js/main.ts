@@ -8,7 +8,7 @@ new Vue( {
         hazPosts(): boolean {
             return this.isLoading === false && this.posts.length > 0;
         },
-        noPostss(): boolean {
+        noPosts(): boolean {
             return this.isLoading === false && this.posts.length === 0;
         }
     },
