@@ -26,9 +26,9 @@
   </nav>
   <div class="container">
         <div id="app">
-            <div class="row" id="guitarList">
+            <div class="row" id="PostList">
                 <h3>Post list</h3>
-                <table v-if="hazGuitars">
+                <table v-if="hazPosts">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -41,7 +41,7 @@
                         <tr v-for="post in posts">
                             <td>{{ post.title }}</td>
                             <td>{{ post.content }}</td>
-                            <td>{{ post.updatedAtl }}</td>
+                            <td>{{ post.updated_at }}</td>
                             <td>
                                 <button id="postDelete" @click="confirmDeletePost(post.id)" class="btn-small"><i class="material-icons right">delete</i>Delete</button>
                             </td>
@@ -52,15 +52,15 @@
             </div>
             <div class="row" id="postEdit">
                 <h3>Add a post</h3>
-                <form class="col s12" @submit.prevent="addPost">
+                <form class="col s12" @submit="addPost">
                     <div class="row">
                         <div class="input-field col s6">
                             <input v-model="title" ref="title" placeholder="Top 10 Programming Languages 2021" id="title" type="text" class="validate">
-                            <label for="brand">Title</label>
+                            <label for="title">Title</label>
                         </div>
                         <div class="input-field col s6">
                             <input v-model="content" ref="content" placeholder="JS TS Python Ruby..." id="content" type="text" class="validate">
-                            <label for="brand">Content</label>
+                            <label for="content">Content</label>
                         </div>
                     </div>
                     <button id="postEditSubmit" class="btn" type="submit"><i class="material-icons right">send</i>Submit</button>
