@@ -40,8 +40,12 @@
                     <tbody>
                         <tr v-for="post in posts">
                           <template v-if="postEditingId == post.id">
-                            <td><v-text-field v-model="title"/></td>
-                            <td><v-text-field v-model="content"/></td>
+                            <td>
+                              <div class="input-field">
+                                <input type="text" :value="`${post.title}`" v-model="title" :id="`title-edit-${post.id}`"  @keydown.enter="editPost(post.id)">
+                              </div>
+                            </td>
+                            <td><input type="text" :value="`${post.content}`" v-model="content" :id="`content-edit-${post.id}`"  @keydown.enter="editPost(post.id)"></td>
                             <td>{{ post.updated_at }}</td>
                           </template>
                           <template v-else>
