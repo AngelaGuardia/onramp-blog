@@ -79,8 +79,8 @@ export const register = ( app: express.Application ) => {
             const userId = req.userContext.userinfo.sub;
             const id = await db.one( `
                 UPDATE posts
-                SET title = $[title]
-                    , content = $[content]
+                SET title = $[title],
+                content = $[content]
                 WHERE
                     id = $[id]
                     AND user_id = $[userId]

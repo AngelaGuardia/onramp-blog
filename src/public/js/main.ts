@@ -3,7 +3,7 @@ import * as M from "materialize-css";
 import Vue from "vue";
 
 // tslint:disable-next-line no-unused-expression
-new Vue( {
+const app = new Vue( {
     computed: {
         hazPosts(): boolean {
             return this.isLoading === false && this.posts.length > 0;
@@ -16,6 +16,8 @@ new Vue( {
         return {
             content: "",
             isLoading: true,
+            postEditingId: "",
+            posts: [],
             selectedPost: "",
             selectedPostId: 0,
             title: "",
@@ -42,7 +44,7 @@ new Vue( {
                 } );
         },
         confirmDeletePost( id: string ) {
-            const post = this.posts.find( ( g ) => g.id === id );
+            const post = this.posts.find( ( p ) => p.id === id );
             this.selectedPost = `${ post.title } ${ post.content }`;
             this.selectedPostId = post.id;
             const dc = this.$refs.deleteConfirm;
@@ -65,6 +67,28 @@ new Vue( {
                     this.isLoading = false;
                     this.posts = res.data;
                 } )
+                .catch( ( err: any ) => {
+                    // tslint:disable-next-line:no-console
+                    console.log( err );
+                } );
+        },
+        setToEditing( id: string) {
+          this.postEditingId = id;
+
+          setTimeout(() => {
+            document.getElementById(`title-edit-${id}`).focus();
+          }, 1);
+        },
+        editPost( id: string ) {
+            this.postEditingId = "";
+            const post = {
+                content: this.content,
+                id,
+                title: this.title
+            };
+            axios
+                .patch( `/api/posts/${ id }`, post )
+                .then( this.loadPosts() )
                 .catch( ( err: any ) => {
                     // tslint:disable-next-line:no-console
                     console.log( err );
