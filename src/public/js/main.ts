@@ -53,7 +53,7 @@ const app = new Vue( {
         deletePost( id: string ) {
             axios
                 .delete( `/api/posts/${ id }` )
-                .then( this.loadPosts )
+                .then( this.loadPosts() )
                 .catch( ( err: any ) => {
                     // tslint:disable-next-line:no-console
                     console.log( err );
@@ -73,6 +73,27 @@ const app = new Vue( {
         },
         setToEditing( id: string) {
           this.postEditingId = id;
+
+          setTimeout(() => {
+            document.getElementById(`title-edit-${id}`).focus();
+          }, 1);
+        },
+        editPost( id: string ) {
+            this.postEditingId = "";
+            const post = {
+                content: this.content,
+                id,
+                title: this.title
+            };
+            axios
+                .patch( `/api/posts/${ id }`, post )
+                .then( () => {
+                    this.loadPosts();
+                } )
+                .catch( ( err: any ) => {
+                    // tslint:disable-next-line:no-console
+                    console.log( err );
+                } );
         }
     },
     mounted() {
