@@ -3,7 +3,7 @@ import * as M from "materialize-css";
 import Vue from "vue";
 
 // tslint:disable-next-line no-unused-expression
-new Vue( {
+const app = new Vue( {
     computed: {
         hazPosts(): boolean {
             return this.isLoading === false && this.posts.length > 0;
@@ -16,6 +16,7 @@ new Vue( {
         return {
             content: "",
             isLoading: true,
+            postEditingId: "",
             selectedPost: "",
             selectedPostId: 0,
             title: "",
@@ -69,6 +70,9 @@ new Vue( {
                     // tslint:disable-next-line:no-console
                     console.log( err );
                 } );
+        },
+        setToEditing( id: string) {
+          this.postEditingId = id;
         }
     },
     mounted() {
