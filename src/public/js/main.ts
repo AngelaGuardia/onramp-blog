@@ -17,6 +17,7 @@ const app = new Vue( {
             content: "",
             isLoading: true,
             postEditingId: "",
+            posts: [],
             selectedPost: "",
             selectedPostId: 0,
             title: "",
@@ -43,7 +44,7 @@ const app = new Vue( {
                 } );
         },
         confirmDeletePost( id: string ) {
-            const post = this.posts.find( ( g ) => g.id === id );
+            const post = this.posts.find( ( p ) => p.id === id );
             this.selectedPost = `${ post.title } ${ post.content }`;
             this.selectedPostId = post.id;
             const dc = this.$refs.deleteConfirm;
@@ -53,7 +54,7 @@ const app = new Vue( {
         deletePost( id: string ) {
             axios
                 .delete( `/api/posts/${ id }` )
-                .then( this.loadPosts() )
+                .then( this.loadPosts )
                 .catch( ( err: any ) => {
                     // tslint:disable-next-line:no-console
                     console.log( err );
@@ -87,9 +88,7 @@ const app = new Vue( {
             };
             axios
                 .patch( `/api/posts/${ id }`, post )
-                .then( () => {
-                    this.loadPosts();
-                } )
+                .then( this.loadPosts() )
                 .catch( ( err: any ) => {
                     // tslint:disable-next-line:no-console
                     console.log( err );
