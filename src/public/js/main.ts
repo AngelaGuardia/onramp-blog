@@ -99,7 +99,7 @@ const app = new Vue( {
         toggleFavorite( id: string ) {
             axios
                 .patch( `/api/favorites/${ id }` )
-                .then( this.loadPosts() )
+                .then( this.loadPosts )
                 .catch( ( err: any ) => {
                     // tslint:disable-next-line:no-console
                     console.log( err );
