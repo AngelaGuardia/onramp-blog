@@ -9,3 +9,5 @@
 # ignore
 
 /.cache
+
+./dist/**
