@@ -138,4 +138,29 @@ export const register = ( app: express.Application ) => {
           res.json( { error: err.message || err } );
       }
     } );
+
+    // favorites index
+    app.get( `/api/favorites`, oidc.ensureAuthenticated(), async ( req: any, res ) => {
+        try {
+            const userId = req.userContext.userinfo.sub;
+            const posts = await db.any( `
+                SELECT
+                    id
+                    , title
+                    , favorite
+                    , content
+                    , updated_at
+                FROM    posts
+                WHERE   user_id = $[userId]
+                        AND favorite = TRUE
+                ORDER BY updated_at`, { userId } );
+            // tslint:disable-next-line:no-console
+            console.log(posts);
+            return res.json( posts );
+        } catch ( err ) {
+            // tslint:disable-next-line:no-console
+            console.error(err);
+            res.json( { error: err.message || err } );
+        }
+    } );
 };
