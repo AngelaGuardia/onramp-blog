@@ -15,6 +15,7 @@ const app = new Vue( {
     data() {
         return {
             content: "",
+            favorite: false,
             isLoading: true,
             postEditingId: "",
             posts: [],
@@ -29,6 +30,7 @@ const app = new Vue( {
         addPost() {
             const post = {
                 content: this.content,
+                favorite: false,
                 title: this.title
             };
             axios
@@ -88,6 +90,15 @@ const app = new Vue( {
             };
             axios
                 .patch( `/api/posts/${ id }`, post )
+                .then( this.loadPosts() )
+                .catch( ( err: any ) => {
+                    // tslint:disable-next-line:no-console
+                    console.log( err );
+                } );
+        },
+        toggleFavorite( id: string ) {
+            axios
+                .patch( `/api/favorites/${ id }` )
                 .then( this.loadPosts() )
                 .catch( ( err: any ) => {
                     // tslint:disable-next-line:no-console
