@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS posts (
     , user_id varchar(50) NOT NULL
     , title varchar(50) NOT NULL
     , content text NOT NULL
+    , favorite boolean NOT NULL
     , created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
     , updated_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
