@@ -38,6 +38,10 @@ const register = (app) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         res.render("posts", { isAuthenticated: req.isAuthenticated(), user });
     });
+    app.get("/favorites", oidc.ensureAuthenticated(), (req, res) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        res.render("favorites", { isAuthenticated: req.isAuthenticated(), user });
+    });
     api.register(app);
 };
 exports.register = register;

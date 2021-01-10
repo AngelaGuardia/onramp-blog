@@ -33,11 +33,14 @@ const register = (app) => {
                 SELECT
                     id
                     , title
+                    , favorite
                     , content
                     , updated_at
                 FROM    posts
                 WHERE   user_id = $[userId]
                 ORDER BY updated_at`, { userId });
+            // tslint:disable-next-line:no-console
+            console.log(posts);
             return res.json(posts);
         }
         catch (err) {
@@ -72,8 +75,8 @@ const register = (app) => {
         try {
             const userId = req.userContext.userinfo.sub;
             const id = yield db.one(`
-                INSERT INTO posts( user_id, title, content )
-                VALUES( $[userId], $[title], $[content] )
+                INSERT INTO posts( user_id, title, content, favorite )
+                VALUES( $[userId], $[title], $[content], $[favorite] )
                 RETURNING id;`, Object.assign({ userId }, req.body));
             return res.json({ id });
         }
@@ -86,6 +89,8 @@ const register = (app) => {
     // posts update
     app.patch(`/api/posts/:id`, oidc.ensureAuthenticated(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
+            // tslint:disable-next-line:no-console
+            console.log(req.body);
             const userId = req.userContext.userinfo.sub;
             const id = yield db.one(`
                 UPDATE posts
@@ -114,6 +119,51 @@ const register = (app) => {
                 WHERE   user_id = $[userId]
                 AND     id = $[id]`, { userId, id: req.params.id }, (r) => r.rowCount); //// QUESTION: what does this row count do
             return res.json({ id });
+        }
+        catch (err) {
+            // tslint:disable-next-line:no-console
+            console.error(err);
+            res.json({ error: err.message || err });
+        }
+    }));
+    // favorites toggle
+    app.patch(`/api/favorites/:id`, oidc.ensureAuthenticated(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const userId = req.userContext.userinfo.sub;
+            const id = yield db.one(`
+            UPDATE posts
+            SET favorite = NOT favorite
+            WHERE
+                id = $[id]
+                AND user_id = $[userId]
+            RETURNING
+                id;`, { userId, id: req.params.id });
+            return res.json({ id });
+        }
+        catch (err) {
+            // tslint:disable-next-line:no-console
+            console.error(err);
+            res.json({ error: err.message || err });
+        }
+    }));
+    // favorites index
+    app.get(`/api/favorites`, oidc.ensureAuthenticated(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const userId = req.userContext.userinfo.sub;
+            const posts = yield db.any(`
+                SELECT
+                    id
+                    , title
+                    , favorite
+                    , content
+                    , updated_at
+                FROM    posts
+                WHERE   user_id = $[userId]
+                        AND favorite = TRUE
+                ORDER BY updated_at`, { userId });
+            // tslint:disable-next-line:no-console
+            console.log(posts);
+            return res.json(posts);
         }
         catch (err) {
             // tslint:disable-next-line:no-console

@@ -15,6 +15,7 @@ const app = new Vue( {
     data() {
         return {
             content: "",
+            favorite: false,
             isLoading: true,
             postEditingId: "",
             posts: [],
@@ -29,6 +30,7 @@ const app = new Vue( {
         addPost() {
             const post = {
                 content: this.content,
+                favorite: false,
                 title: this.title
             };
             axios
@@ -89,6 +91,106 @@ const app = new Vue( {
             axios
                 .patch( `/api/posts/${ id }`, post )
                 .then( this.loadPosts() )
+                .catch( ( err: any ) => {
+                    // tslint:disable-next-line:no-console
+                    console.log( err );
+                } );
+        },
+        toggleFavorite( id: string ) {
+            axios
+                .patch( `/api/favorites/${ id }` )
+                .then( this.loadPosts )
+                .catch( ( err: any ) => {
+                    // tslint:disable-next-line:no-console
+                    console.log( err );
+                } );
+        }
+    },
+    mounted() {
+        return this.loadPosts();
+    }
+} );
+
+// tslint:disable-next-line no-unused-expression
+const app1 = new Vue( {
+    computed: {
+        hazPosts(): boolean {
+            return this.isLoading === false && this.posts.length > 0;
+        },
+        noPosts(): boolean {
+            return this.isLoading === false && this.posts.length === 0;
+        }
+    },
+    data() {
+        return {
+            content: "",
+            favorite: false,
+            isLoading: true,
+            postEditingId: "",
+            posts: [],
+            selectedPost: "",
+            selectedPostId: 0,
+            title: "",
+            updated_at: "",
+        };
+    },
+    el: "#app1",
+    methods: {
+        confirmDeletePost( id: string ) {
+            const post = this.posts.find( ( p ) => p.id === id );
+            this.selectedPost = `${ post.title } ${ post.content }`;
+            this.selectedPostId = post.id;
+            const dc = this.$refs.deleteConfirm;
+            const modal = M.Modal.init( dc );
+            modal.open();
+        },
+        deletePost( id: string ) {
+            axios
+                .delete( `/api/posts/${ id }` )
+                .then( this.loadPosts )
+                .catch( ( err: any ) => {
+                    // tslint:disable-next-line:no-console
+                    console.log( err );
+                } );
+        },
+        loadPosts() {
+            axios
+                .get( "/api/favorites" )
+                .then( ( res: any ) => {
+                    this.isLoading = false;
+                    this.posts = res.data;
+                } )
+                .catch( ( err: any ) => {
+                    // tslint:disable-next-line:no-console
+                    console.log( err );
+                } );
+        },
+        setToEditing( id: string) {
+          this.postEditingId = id;
+
+          setTimeout(() => {
+            document.getElementById(`title-edit-${id}`).focus();
+          }, 1);
+        },
+        editPost( id: string ) {
+            this.postEditingId = "";
+            const post = {
+                content: this.content,
+                id,
+                title: this.title
+            };
+            axios
+                .patch( `/api/posts/${ id }`, post )
+                .then( this.loadPosts() )
+                .catch( ( err: any ) => {
+                    // tslint:disable-next-line:no-console
+                    console.log( err );
+                } );
+        },
+        toggleFavorite( id: string ) {
+            axios
+                .patch( `/api/favorites/${ id }` )
+                .then( this.loadPosts )
                 .catch( ( err: any ) => {
                     // tslint:disable-next-line:no-console
                     console.log( err );

@@ -25,8 +25,67 @@
       </div>
   </nav>
   <div class="container">
-    <h1 class="header">My favorites</h1>
-    <p>Your future list of favorite posts!</p>
-  </div>
-</body>
-</html>
+        <div id="app1">
+            <div class="row" id="PostList">
+                <h3>My Favorites</h3>
+                <table v-if="hazPosts">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Publish Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="post in posts">
+                          <template v-if="postEditingId == post.id">
+                            <td>
+                              <div class="input-field">
+                                <input type="text" :value="`${post.title}`" v-model="title" :id="`title-edit-${post.id}`"  @keydown.enter="editPost(post.id)">
+                              </div>
+                            </td>
+                            <td><input type="text" :value="`${post.content}`" v-model="content" :id="`content-edit-${post.id}`"  @keydown.enter="editPost(post.id)"></td>
+                            <td>{{ post.updated_at }}</td>
+                          </template>
+                          <template v-else>
+                            <td>{{ post.title }}</td>
+                            <td>{{ post.content }}</td>
+                            <td>{{ post.updated_at.slice(0,10) }}</td>
+                          </template>
+                            <template v-if="post.favorite == true">
+                              <td>
+                                <button id="postFavorite" @click="toggleFavorite(post.id)" class="btn-small yellow-text"><i class="material-icons right">star</i></button>
+                              </td>
+                            </template>
+                            <template v-else>
+                              <td>
+                                <button id="postFavorite" @click="toggleFavorite(post.id)" class="btn-small"><i class="material-icons right">star</i></button>
+                              </td>
+                            </template>
+                            <td>
+                              <button id="postEdit" @click="setToEditing(post.id)" class="btn-small"><i class="material-icons right">edit</i></button>
+                            </td>
+                            <td>
+                              <button id="postDelete" @click="confirmDeletePost(post.id)" class="btn-small"><i class="material-icons right">delete</i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p v-if="noPosts">No favorites yet!</p>
+            </div>
+            <div id="deleteConfirm" ref="deleteConfirm" class="modal">
+                <div class="modal-content">
+                    <h4>Confirm delete</h4>
+                    <p>Delete {{ selectedPost }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button @click="deletePost(selectedPostId)" class="modal-close btn-flat">Ok</button>
+                    <button class="modal-close btn-flat">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+  </body>
+  </html>
