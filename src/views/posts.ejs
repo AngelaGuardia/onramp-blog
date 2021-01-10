@@ -51,21 +51,21 @@
                           <template v-else>
                             <td>{{ post.title }}</td>
                             <td>{{ post.content }}</td>
-                            <td>{{ post.favorite }}</td>
+                            <td>{{ post.updated_at.slice(0,10) }}</td>
                           </template>
-                            <td>
-                              <button id="postEdit" @click="setToEditing(post.id)" class="btn-small"><i class="material-icons right">edit</i></button>
-                            </td>
                             <template v-if="post.favorite == true">
                               <td>
-                                <button id="postFavorite" @click="toggleFavorite(post.id)" class="btn-small yellow accent-2"><i class="material-icons right">star</i></button>
+                                <button id="postFavorite" @click="toggleFavorite(post.id)" class="btn-small yellow-text"><i class="material-icons right">star</i></button>
                               </td>
                             </template>
                             <template v-else>
                               <td>
-                                <button id="postFavorite" @click="toggleFavorite(post.id)" class="btn-small yellow lighten-5"><i class="material-icons right">star</i></button>
+                                <button id="postFavorite" @click="toggleFavorite(post.id)" class="btn-small"><i class="material-icons right">star</i></button>
                               </td>
                             </template>
+                            <td>
+                              <button id="postEdit" @click="setToEditing(post.id)" class="btn-small"><i class="material-icons right">edit</i></button>
+                            </td>
                             <td>
                               <button id="postDelete" @click="confirmDeletePost(post.id)" class="btn-small"><i class="material-icons right">delete</i></button>
                             </td>
