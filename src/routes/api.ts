@@ -112,4 +112,39 @@ export const register = ( app: express.Application ) => {
             res.json( { error: err.message || err } );
         }
     } );
+
+    // favorites create
+    app.post( `/api/favorites/:id`, oidc.ensureAuthenticated(), async ( req: any, res ) => {
+        try {
+            const userId = req.userContext.userinfo.sub;
+            const id = await db.one( `
+                INSERT INTO favorites( user_id, post_id )
+                VALUES( $[userId], $[id] )
+                RETURNING id;`,
+                { userId, ...req.body  } );
+            return res.json( { id } );
+        } catch ( err ) {
+            // tslint:disable-next-line:no-console
+            console.error(err);
+            res.json( { error: err.message || err } );
+        }
+    } );
+
+    // favorites delete
+    app.delete( `/api/favorites/:id`, oidc.ensureAuthenticated(), async ( req: any, res ) => {
+        try {
+            const userId = req.userContext.userinfo.sub;
+            const id = await db.result( `
+                DELETE
+                FROM    favorites
+                WHERE   user_id = $[userId]
+                AND     id = $[id]`,
+                { userId, id: req.params.id  }, ( r ) => r.rowCount ); //// QUESTION: what does this row count do
+            return res.json( { id } );
+        } catch ( err ) {
+            // tslint:disable-next-line:no-console
+            console.error(err);
+            res.json( { error: err.message || err } );
+        }
+    } );
 };
