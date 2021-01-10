@@ -22,11 +22,14 @@ export const register = ( app: express.Application ) => {
                 SELECT
                     id
                     , title
+                    , favorite
                     , content
                     , updated_at
                 FROM    posts
                 WHERE   user_id = $[userId]
                 ORDER BY updated_at`, { userId } );
+            // tslint:disable-next-line:no-console
+            console.log(posts);
             return res.json( posts );
         } catch ( err ) {
             // tslint:disable-next-line:no-console
@@ -61,8 +64,8 @@ export const register = ( app: express.Application ) => {
         try {
             const userId = req.userContext.userinfo.sub;
             const id = await db.one( `
-                INSERT INTO posts( user_id, title, content )
-                VALUES( $[userId], $[title], $[content] )
+                INSERT INTO posts( user_id, title, content, favorite )
+                VALUES( $[userId], $[title], $[content], $[favorite] )
                 RETURNING id;`,
                 { userId, ...req.body  } );
             return res.json( { id } );
@@ -76,6 +79,8 @@ export const register = ( app: express.Application ) => {
     // posts update
     app.patch( `/api/posts/:id`, oidc.ensureAuthenticated(), async ( req: any, res ) => {
         try {
+            // tslint:disable-next-line:no-console
+            console.log(req.body);
             const userId = req.userContext.userinfo.sub;
             const id = await db.one( `
                 UPDATE posts
@@ -113,38 +118,24 @@ export const register = ( app: express.Application ) => {
         }
     } );
 
-    // favorites create
-    app.post( `/api/favorites/:id`, oidc.ensureAuthenticated(), async ( req: any, res ) => {
-        try {
-            const userId = req.userContext.userinfo.sub;
-            const id = await db.one( `
-                INSERT INTO favorites( user_id, post_id )
-                VALUES( $[userId], $[id] )
-                RETURNING id;`,
-                { userId, ...req.body  } );
-            return res.json( { id } );
-        } catch ( err ) {
-            // tslint:disable-next-line:no-console
-            console.error(err);
-            res.json( { error: err.message || err } );
-        }
-    } );
-
-    // favorites delete
-    app.delete( `/api/favorites/:id`, oidc.ensureAuthenticated(), async ( req: any, res ) => {
-        try {
-            const userId = req.userContext.userinfo.sub;
-            const id = await db.result( `
-                DELETE
-                FROM    favorites
-                WHERE   user_id = $[userId]
-                AND     id = $[id]`,
-                { userId, id: req.params.id  }, ( r ) => r.rowCount ); //// QUESTION: what does this row count do
-            return res.json( { id } );
-        } catch ( err ) {
-            // tslint:disable-next-line:no-console
-            console.error(err);
-            res.json( { error: err.message || err } );
-        }
+    // favorites toggle
+    app.patch( `/api/favorites/:id`, oidc.ensureAuthenticated(), async ( req: any, res ) => {
+      try {
+          const userId = req.userContext.userinfo.sub;
+          const id = await db.one( `
+            UPDATE posts
+            SET favorite = NOT favorite
+            WHERE
+                id = $[id]
+                AND user_id = $[userId]
+            RETURNING
+                id;`,
+              { userId, id: req.params.id } );
+          return res.json( { id } );
+      } catch ( err ) {
+          // tslint:disable-next-line:no-console
+          console.error(err);
+          res.json( { error: err.message || err } );
+      }
     } );
 };
