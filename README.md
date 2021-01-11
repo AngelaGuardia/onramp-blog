@@ -11,18 +11,18 @@ Given that this is my first TypeScript, Node.js/Express.js, Vue.js app, I follow
 Frontend:
 - TypeScript
 - Vue
-- xxxx
 
 Backend:
 - TypeScript
-- Node.js
+- Node
 - Express
 
 Other:
-- Postgres database
+- Postgres database on Docker
 - Okta
 
 ### Local setup
+- clone this repo
 - Run `npm install`
 - Add a `.env` file to the root directory and the following ENV variables to it:
     - `NODE_ENV=development`
@@ -32,24 +32,48 @@ Other:
     - `OKTA_ORG_URL=https://{yourOktaDomain}` (get Okta keys [here](https://developer.okta.com/))
     - `OKTA_CLIENT_ID={yourClientId}`
     - `OKTA_CLIENT_SECRET={yourClientSecret}`
-    - `PGHOST=localhost``
-    - `PGUSER=postgres``
-    - `PGDATABASE=postgres``
-    - `PGPASSWORD=onrampblog``
-    - `PGPORT=5433``
+    - `PGHOST=localhost`
+    - `PGUSER=postgres`
+    - `PGDATABASE=postgres`
+    - `PGPASSWORD=onrampblog`
+    - `PGPORT=5432`
+- Run `npm run dev`
+
+#### UI Design
+
+The UI Design was focused on creating easy to find links and buttons for the user to easily see all if the actions they could perform on a specific post. Given that I have a deeper understander of the backend than the frontend of web development, I focused the UI design heavily on the initial tutorial that I followed to build the app. I added features progressively to meet all requirements and make the app intuitive for all users.
+
+[INSERT GIF]
+
+#### Architecture Pattern
+
+I spent a long time at the beginning of the project trying to find a tech stack that followed an architecture pattern that I am familiar with (MVC, Service/Facade) however I was unable to find one that I felt comfortable implementing within the time constraints. Therefore I settled on the MVVM (??) design pattern of Vue apps.
+
+#### Version Control / Project Management
+
+I used this GitHub repo for version control for this project. I added new features on specific feature branched and merged those to my main branch through well documented pull requests. Had this been a group project, I would've added a helpful PR template and had thorough reviews and conversations within the PR.
+
+I used the project board to plan, monitor, and keep track of my work. I made sure to document any technical debt or future work by creating issues for bugs or enhancements.
+
+#### Unit Testing
+
+#### Web Development Best Practices
+- DRY use of partials
+- REST
+- User experience
 
 ### Feature Requirements:
 
 At a minimum, your app should allow for users to be able to:
-- Create an account, login, and log out.
-- CRUD functionality:
+- [x] Create an account, login, and log out.
+- [x] CRUD functionality:
   - Create a new blog post
   - Read a blog post
   - Update a post
   - Delete a post
-- Search for blog posts based on at least 2 factors (date, title, etc.)
-- Favorite one or more blog posts at the same time.
-- View all of their favorites.
+- [ ] Search for blog posts based on at least 2 factors (date, title, etc.)
+- [x] Favorite one or more blog posts at the same time.
+- [x] View all of their favorites.
 
 ## What we're looking for 🌟
 
