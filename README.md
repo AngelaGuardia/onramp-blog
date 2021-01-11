@@ -6,7 +6,7 @@ Onramp blog is a Fullstack application that allows users to login, logout, CRUD 
 
 Given that this is my first TypeScript, Node.js/Express.js, Vue.js app, I followed this [Okta tutorial](https://developer.okta.com/blog/2018/11/15/node-express-typescript) closely for the initial setup and the authentication portions of this application.
 
-### Techstack:
+## Techstack:
 
 Frontend:
 - TypeScript
@@ -21,48 +21,53 @@ Other:
 - Postgres database on Docker
 - Okta
 
-### Local setup
+## Local setup
 - clone this repo
 - Run `npm install`
 - Add a `.env` file to the root directory and the following ENV variables to it:
-    - `NODE_ENV=development`
-    - `HOST_URL=http://localhost:8080`
-    - `SESSION_SECRET=OnRamp`
-    - `SERVER_PORT=8080`
-    - `OKTA_ORG_URL=https://{yourOktaDomain}` (get Okta keys [here](https://developer.okta.com/))
-    - `OKTA_CLIENT_ID={yourClientId}`
-    - `OKTA_CLIENT_SECRET={yourClientSecret}`
-    - `PGHOST=localhost`
-    - `PGUSER=postgres`
-    - `PGDATABASE=postgres`
-    - `PGPASSWORD=onrampblog`
-    - `PGPORT=5432`
+```
+NODE_ENV=development
+HOST_URL=http://localhost:8080
+SESSION_SECRET=OnRamp
+SERVER_PORT=8080
+OKTA_ORG_URL=https://{yourOktaDomain}
+OKTA_CLIENT_ID={yourClientId}
+OKTA_CLIENT_SECRET={yourClientSecret}
+PGHOST=localhost
+PGUSER=postgres
+PGDATABASE=postgres
+PGPASSWORD=onrampblog
+PGPORT=5432
+```
+- Get Okta keys [here](https://developer.okta.com/)
 - Run `npm run dev`
 
-#### UI Design
+## UI Design
 
 The UI Design was focused on creating easy to find links and buttons for the user to easily see all if the actions they could perform on a specific post. Given that I have a deeper understander of the backend than the frontend of web development, I focused the UI design heavily on the initial tutorial that I followed to build the app. I added features progressively to meet all requirements and make the app intuitive for all users.
 
 [INSERT GIF]
 
-#### Architecture Pattern
+## DB Design
+
+## Architecture Pattern
 
 I spent a long time at the beginning of the project trying to find a tech stack that followed an architecture pattern that I am familiar with (MVC, Service/Facade) however I was unable to find one that I felt comfortable implementing within the time constraints. Therefore I settled on the MVVM (??) design pattern of Vue apps.
 
-#### Version Control / Project Management
+## Version Control / Project Management
 
 I used this GitHub repo for version control for this project. I added new features on specific feature branched and merged those to my main branch through well documented pull requests. Had this been a group project, I would've added a helpful PR template and had thorough reviews and conversations within the PR.
 
 I used the project board to plan, monitor, and keep track of my work. I made sure to document any technical debt or future work by creating issues for bugs or enhancements.
 
-#### Unit Testing
+## Unit Testing
 
-#### Web Development Best Practices
+## Web Development Best Practices
 - DRY use of partials
 - REST
 - User experience
 
-### Feature Requirements:
+## Feature Requirements:
 
 At a minimum, your app should allow for users to be able to:
 - [x] Create an account, login, and log out.
