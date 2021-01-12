@@ -84,9 +84,9 @@ const app = new Vue( {
         editPost( id: string ) {
             this.postEditingId = "";
             const post = {
-                content: this.content,
+                content: this.post.content,
                 id,
-                title: this.title
+                title: this.post.title
             };
             axios
                 .patch( `/api/posts/${ id }`, post )
@@ -175,9 +175,9 @@ const app1 = new Vue( {
         editPost( id: string ) {
             this.postEditingId = "";
             const post = {
-                content: this.content,
+                content: this.post.content,
                 id,
-                title: this.title
+                title: this.post.title
             };
             axios
                 .patch( `/api/posts/${ id }`, post )
