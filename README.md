@@ -12,7 +12,7 @@ Given that this is my first TypeScript, Node.js/Express.js, Vue.js app, I follow
 1. [Project Retro](#retro)
 1. [UI Design](#ui)
 1. [DB Design](#db)
-1. [Architecture Patter](#architecture)
+1. [Architecture Pattern](#architecture)
 1. [Version Control / Project Management](#versioncontrol)
 1. [Unit Testing](#testing)
 1. [Web Development Best Practices](#bestpractices)
@@ -46,7 +46,16 @@ PGPORT=5432
 - Run `npm run initdb`
 - Run `npm run dev`
 - Visit the site [here](http://localhost:8080)
-- ***** Remember to send the okta keys and credentials with submission ******
+
+- For the purposes of making this project easier to review here are Okta keys and credentials to a generic account:
+```
+OKTA_ORG_URL=https://dev-1204909.okta.com
+OKTA_CLIENT_ID=0oa3qn6w1RAK44W8I5d6
+OKTA_CLIENT_SECRET=PV8g1w7Zxy7jxkj1lsC4GlT-qIp_jF35po4ENHWJ
+```
+`username: onrampbloguser@gmail.com`
+
+`password: blend123`
 
 ## Project Retro <a name="retro"></a>
 
