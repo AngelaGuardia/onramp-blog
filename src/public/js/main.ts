@@ -170,14 +170,10 @@ const app1 = new Vue( {
         },
         editPost( id: string ) {
             this.postEditingId = "";
-            const post = {
-                content: this.content,
-                id,
-                title: this.title
-            };
+            const post = this.posts.find( ( p ) => p.id === id );
             axios
                 .patch( `/api/posts/${ id }`, post )
-                .then( this.loadPosts() )
+                .then( this.loadPosts )
                 .catch( ( err: any ) => {
                     // tslint:disable-next-line:no-console
                     console.log( err );
