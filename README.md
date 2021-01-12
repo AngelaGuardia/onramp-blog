@@ -6,13 +6,25 @@ Onramp blog is a Fullstack application that allows users to login, logout, CRUD 
 
 Given that this is my first TypeScript, Node.js/Express.js, Vue.js app, I followed this [Okta tutorial](https://developer.okta.com/blog/2018/11/15/node-express-typescript) closely for the initial setup and the authentication portions of this application.
 
-## Techstack:
+## Table of Contents
+1. [Techstack](#Techstack)
+1. [Local Setup](#localsetup)
+1. [Project Retro](#retro)
+1. [UI Design](#ui)
+1. [DB Design](#db)
+1. [Architecture Patter](#architecture)
+1. [Version Control / Project Management](#versioncontrol)
+1. [Unit Testing](#testing)
+1. [Web Development Best Practices](#bestpractices)
+1. [Feature Completion](#completion)
 
-- Frontend: TypeScript, Vue
-- Backend: TypeScript, Node, Express
-- Other: Postgres database on Docker, Okta for Authentication
+## Techstack <a name="Techstack"></a>
 
-## Local setup
+- Frontend: TypeScript, Vue.js
+- Backend: TypeScript, Node.js, Express.js
+- Other: PostgreSQL database on Docker, Okta for Authentication
+
+## Local setup <a name="localsetup"></a>
 - Clone this repo
 - Run `npm install`
 - Add a `.env` file to the root directory and add the following ENV variables to it:
@@ -33,121 +45,82 @@ PGPORT=5432
 - Get Okta keys [here](https://developer.okta.com/)
 - Run `npm run initdb`
 - Run `npm run dev`
-- Visit the site [here](localhost:8080)
+- Visit the site [here](http://localhost:8080)
 - ***** Remember to send the okta keys and credentials with submission ******
 
-## Project Retro
+## Project Retro <a name="retro"></a>
 
 **Achievements:**
 - Given the time constraints and the fact that this was my first attempt at building an application with this tech stack, I am proud about having completed all required features with the exception of the search functionality.
 
 **Challenges:**
 - The time constraints presented a huge challenge when learning a whole new tech stack
-- My experience is heavily focused on backend development so implementing frontend functionality with Vue was a challenge (and a really fun one at that!)
+- My experience is heavily focused on backend development so implementing frontend functionality with Vue.js was a challenge (and a really fun one at that!)
 
 **Known Bugs:**
 - I used [this project board](https://github.com/AngelaGuardia/onramp-blog/projects/1) to track my work and keep track of any [known bugs](https://github.com/AngelaGuardia/onramp-blog/projects/1?card_filter_query=label%3Abug). You can look at the issue descriptions for details on the approaches I would take to solve these bugs. The most prominent being:
     - The in-line edit feature does not retain the existing content of the post while editing - [issue #30](https://github.com/AngelaGuardia/onramp-blog/issues/30)
-    - The in-line edit feature shares a v-model with the 'Add Post' feature which seems to "duplicates" the input on the FE - [issue #29](https://github.com/AngelaGuardia/onramp-blog/issues/29)
+    - The in-line edit feature shares a v-model with the 'Add Post' feature which seems to "duplicate" the input on the FE - [issue #29](https://github.com/AngelaGuardia/onramp-blog/issues/29)
 
 **Future Improvements:**
 - You can find all tracked [enhancements](https://github.com/AngelaGuardia/onramp-blog/projects/1?card_filter_query=label%3Aenhancement) as issues on the project board. Here are the most prominent ones:
     - Add unit testing
-    - Add an ORM to improve security and project from sequel injection
+    - Add an ORM to improve security and protect from sequel injection
     - Add better error handling to improve user experience
     - Add a post show page
 
-## UI Design
+## UI Design <a name="ui"></a>
 
-The UI Design was focused on creating easy to find links and buttons for the user to easily see all if the actions they could perform on a specific post. Given that I have a deeper understanding of the backend than the frontend of web development, I focused the UI design heavily on the initial tutorial that I followed to build the app. I added features progressively to meet all requirements and make the app intuitive for all users.
+The UI Design was focused on creating easy to find links and buttons for the user to easily see all the actions they could perform on a specific post. Given that I have a deeper understanding of the backend than the frontend of web development, I focused the UI design heavily on the initial tutorial that I followed to build the app. I added features progressively to meet all requirements and make the app intuitive for all users.
 
 [INSERT GIF]
 
-## DB Design
-- Discuss favorites table vs column
-- Discuss ORM and db security
-- Add DB diagram
+## DB Design <a name="db"></a>
 
-## Architecture Pattern
+My initial database design included three tables, USERS, POSTS, and FAVORITES. Where USERS have many POSTS (that belong to users), and USERS have many favorites posts through FAVORITES (join table). The idea behind this design was to account for future scalability. By including a FAVORITES join table I could eventually allow users to favorite each other's posts and allow posts to be favorited by multiple users.
 
-I spent a long time at the beginning of the project trying to find a tech stack that followed an architecture pattern that I am familiar with (MVC, Service/Facade) however I was unable to find one that I felt comfortable implementing within the time constraints. Therefore I settled on the MVVM (??) design pattern of Vue apps.
+[INITIAL DESIGN SCREENSHOT]
 
-## Version Control / Project Management
+As the project developed, my database design changed. Since I used Okta for authentication, I no longer needed a USERS table. Additionally, given the time constraints I simplified the db design for this initial iteration by eliminating the FAVORITES table. Instead, I added a favorites column to the posts table that holds a boolean. This made the implementation of the favorites feature easier for the time being.  
 
-I used this GitHub repo for version control for this project. I added new features on specific feature branched and merged those to my main branch through well documented pull requests. Had this been a group project, I would've added a helpful PR template and had thorough reviews and conversations within the PR.
+[FINAL DESIGN SCREENSHOT]
 
-I used the project board to plan, monitor, and keep track of my work. I made sure to document any technical debt or future work by creating issues for bugs or enhancements.
+One major improvement I would like to make to this application is eliminating the use of raw sequel to query the database. This can be done by using an ORM like Sequelize.
 
-## Unit Testing
+## Architecture Pattern <a name="architecture"></a>
 
-## Web Development Best Practices
-- DRY use of partials
-- REST
-- User experience
+I spent a long time at the beginning of the project trying to find a tech stack that followed an architecture pattern that I am familiar with (MVC, Service/Facade). However, I was unable to find one that I felt comfortable implementing within the time constraints. Therefore I settled on the [MVVM design pattern](https://012.vuejs.org/guide/) of Vue.js apps. The Model-View-Viewmodel design pattern in Vue.js focuses on creating Vue objects (viewmodels) that connect the Views that the user sees and the Models via two-way data bindings. Most of the logic lives inside the viewmodels and is performed by directives and filters.
 
-## Feature Requirements:
+## Version Control / Project Management <a name="versioncontrol"></a>
+
+I used this GitHub repo for version control for this project. I added new features on specific feature [branches](https://github.com/AngelaGuardia/onramp-blog/branches) and merged those to my main branch through well documented [pull requests](https://github.com/AngelaGuardia/onramp-blog/pulls?q=is%3Apr+is%3Aclosed). Had this been a group project, I would've added a helpful PR template and had thorough reviews and conversations within each PR.
+
+I used the [project board](https://github.com/AngelaGuardia/onramp-blog/projects/1) to plan, monitor, and keep track of my work. I made sure to document any technical debt or future work by creating issues for bugs or enhancements.
+
+## Unit Testing <a name="testing"></a>
+
+Unfortunately, I did not have time to add unit testing to this application. I tried to set up tests in Jest but had some configuration issues. I decided to skip these for now and focus on completing the features. Out of all the required improvements to my code in this project, this is the most important to me. I've come to really embrace Test Driven Design so I would've liked to be able to do that here. For reference to some fully testes applications that I have built you can see these sample projects:
+- [Crate](https://github.com/AngelaGuardia/Crate/tree/main/code/api/src/modules/user/tests) (Jest)
+- [Viewing Party](https://github.com/ckccameron/viewing_party/tree/main/spec) (Rspec)
+
+## Web Development Best Practices <a name="bestpractices"></a>
+
+- I started my project by creating User Stories to plan my work. This allowed me to keep the user experience at the forefront of all my development work.
+- I followed the REST convention when creating all my API points for ease of use and understanding for other developers that may look at this work. I also took the liberty of creating one non-RESTful endpoint to implement the favorites toogle functionality. I believe that web development best practices are important and should be followed as much as possible when applicable, but should also be approached with flexibility when the situation warrants it!
+- I attempted to keep my code DRY by using view partials but had issues with rendering them
+
+## Feature Completion <a name="completion"></a>
 
 At a minimum, your app should allow for users to be able to:
 - [x] Create an account, login, and log out.
 - [x] CRUD functionality:
-  - Create a new blog post
-  - Read a blog post
-  - Update a post
-  - Delete a post
+  - [x] Create a new blog post
+  - [x] Read a blog post
+  - [x] Update a post
+  - [x] Delete a post
 - [ ] Search for blog posts based on at least 2 factors (date, title, etc.)
 - [x] Favorite one or more blog posts at the same time.
 - [x] View all of their favorites.
-
-## What we're looking for 🌟
-
-#### UI Design
-
-A UI that converts all the requirements into user-friendly features. Assume the user is not tech savvy and needs the site to be intuitive. That said, do not focus all of your efforts on making a beautiful interface, it’s more important that the app works as expected and that you implement all of the requirements.
-
-#### Architecture Pattern
-
-You may select any architectural design pattern you want to implement for this application (MVC, etc.) You must use one and identify the one you chose to use and why in the README when you submit.
-
-An architecture pattern enables you to define a guide for how a piece of software should function, such that it can be scalable, maintainable, and testable.
-
-#### Version Control
-
-Make sure to use version control with your app using a Github repository.
-A large part of building a successful project is showing us the versions you had of the project so we can see the progress that you made.
-
-#### Unit Testing
-
-Unit testing is an important component of development. For this project, you will need to utilize a unit testing framework of your choice on at least one specific module of your application. You do not need to write integration tests or include other types of tests.
-
-
-#### Web Devlopment Best Practices
-
-It's important to subscribe to a set of best practices when designing and implementing a web app. Be mindful of these widely accepted principles:
-Keep your code [DRY](https://code.tutsplus.com/tutorials/3-key-software-principles-you-must-understand--net-25161) (don't repeat yourself).
-Understand the big picture.
-Start with the user experience.
-Make sure your code is clean and simple.
-Using these principles will result in a high quality user experience and ensuring other developers can easily navigate through your code.
-
-#### Web Application Description
-
-Each project submission must include a README file providing an overview of the application and details the app's overall architecture as well as your design decisions. Screenshots of the web app taken from the browser (localhost is fine) are also required. This task assesses the critical competency of communicating and documenting technical concepts.
-
-## What we are NOT Evaluating
-
-#### Feature depth
-
-You won’t be earning extra points for having a bunch of features. Focus on creating a clean, simple application that addresses all of the requirements, has well-tested features, and is documented properly for submission.
-
-## Submission Information
-
-#### Submission Format
-
-This repository will be your starting point. Please download (not clone or fork) this Github repository (INSERT GITHUB LINK HERE WHEN READY) and upload changes to a newly created repository. Once the web application has been completed, you'll be submitting a link to the new repository you created. Prior to submitting your project, you should update the README file to provide the following information:
-- A high level architectural overview of your web application. e.g. names, relationships and purposes of all UI Components.
-- Brief description of the architectural design pattern that you leveraged.
-- An overview of the best practices you implemented.
-- Screenshots of each page in your application and descriptions of the overall user flow.
 
 
 #### Submission Deadline + Process
@@ -155,17 +128,3 @@ This repository will be your starting point. Please download (not clone or fork)
 You must submit your project by 9:00am PST/12:00pm EST on Wednesday, January 13 using [this form](https://docs.google.com/forms/d/e/1FAIpQLSdtHMQzqCd1o8aVcFRbNfXOGTzijTJBMSaWvtNnx6CJbDEmJQ/viewform). Be sure that your project is viewable by the Onramp team as a **public** repository. You can make it private after 1/28/21.
 
 Once you’ve submitted your project, you are expected to stop working on it. Any commits that occur after submission or the deadline will not be reviewed.
-
-## Additional Resources
-
-### Onramp Resources:
-
-Please use the modules and resources in the [Blend Training Plan](https://www.onramp.io/training/5fce6ab55cd2a500174dc937) for resources and exercises on TypeScript and Version Control.
-
-### Other Resources:
-
-- [Website Design & Development](https://envisionitagency.com/blog/2018/04/best-practices-for-web-development/)
-- [Development in Go](https://go.dev/solutions/webdev/)
-- [Typescript Do's and Don'ts](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)
-- [Typescript Best Practices](https://engineering.zalando.com/posts/2019/02/typescript-best-practices.html)
-- [Separation of Concerns](https://youtu.be/VtF6aebWe58)
