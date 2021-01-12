@@ -2,29 +2,20 @@
 
 ## Overview 🤖
 
-Onramp blog is a Fullstack application that allows users to login, logout, CRUD blog posts, favorite posts, and search posts by date and title.
+Onramp blog is a Fullstack application that allows users to login, logout, CRUD blog posts, favorite posts.
 
 Given that this is my first TypeScript, Node.js/Express.js, Vue.js app, I followed this [Okta tutorial](https://developer.okta.com/blog/2018/11/15/node-express-typescript) closely for the initial setup and the authentication portions of this application.
 
 ## Techstack:
 
-Frontend:
-- TypeScript
-- Vue
-
-Backend:
-- TypeScript
-- Node
-- Express
-
-Other:
-- Postgres database on Docker
-- Okta
+- Frontend: TypeScript, Vue
+- Backend: TypeScript, Node, Express
+- Other: Postgres database on Docker, Okta for Authentication
 
 ## Local setup
-- clone this repo
+- Clone this repo
 - Run `npm install`
-- Add a `.env` file to the root directory and the following ENV variables to it:
+- Add a `.env` file to the root directory and add the following ENV variables to it:
 ```
 NODE_ENV=development
 HOST_URL=http://localhost:8080
@@ -40,15 +31,42 @@ PGPASSWORD=onrampblog
 PGPORT=5432
 ```
 - Get Okta keys [here](https://developer.okta.com/)
+- Run `npm run initdb`
 - Run `npm run dev`
+- Visit the site [here](localhost:8080)
+- ***** Remember to send the okta keys and credentials with submission ******
+
+## Project Retro
+
+**Achievements:**
+- Given the time constraints and the fact that this was my first attempt at building an application with this tech stack, I am proud about having completed all required features with the exception of the search functionality.
+
+**Challenges:**
+- The time constraints presented a huge challenge when learning a whole new tech stack
+- My experience is heavily focused on backend development so implementing frontend functionality with Vue was a challenge (and a really fun one at that!)
+
+**Known Bugs:**
+- I used [this project board](https://github.com/AngelaGuardia/onramp-blog/projects/1) to track my work and keep track of any [known bugs](https://github.com/AngelaGuardia/onramp-blog/projects/1?card_filter_query=label%3Abug). You can look at the issue descriptions for details on the approaches I would take to solve these bugs. The most prominent being:
+    - The in-line edit feature does not retain the existing content of the post while editing - [issue #30](https://github.com/AngelaGuardia/onramp-blog/issues/30)
+    - The in-line edit feature shares a v-model with the 'Add Post' feature which seems to "duplicates" the input on the FE - [issue #29](https://github.com/AngelaGuardia/onramp-blog/issues/29)
+
+**Future Improvements:**
+- You can find all tracked [enhancements](https://github.com/AngelaGuardia/onramp-blog/projects/1?card_filter_query=label%3Aenhancement) as issues on the project board. Here are the most prominent ones:
+    - Add unit testing
+    - Add an ORM to improve security and project from sequel injection
+    - Add better error handling to improve user experience
+    - Add a post show page
 
 ## UI Design
 
-The UI Design was focused on creating easy to find links and buttons for the user to easily see all if the actions they could perform on a specific post. Given that I have a deeper understander of the backend than the frontend of web development, I focused the UI design heavily on the initial tutorial that I followed to build the app. I added features progressively to meet all requirements and make the app intuitive for all users.
+The UI Design was focused on creating easy to find links and buttons for the user to easily see all if the actions they could perform on a specific post. Given that I have a deeper understanding of the backend than the frontend of web development, I focused the UI design heavily on the initial tutorial that I followed to build the app. I added features progressively to meet all requirements and make the app intuitive for all users.
 
 [INSERT GIF]
 
 ## DB Design
+- Discuss favorites table vs column
+- Discuss ORM and db security
+- Add DB diagram
 
 ## Architecture Pattern
 
