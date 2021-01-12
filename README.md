@@ -52,15 +52,14 @@ PGPORT=5432
 
 **Achievements:**
 - Given the time constraints and the fact that this was my first attempt at building an application with this tech stack, I am proud about having completed all required features with the exception of the search functionality.
+- [Fixed](https://github.com/AngelaGuardia/onramp-blog/pull/39) some major bugs before the deadline
 
 **Challenges:**
 - The time constraints presented a huge challenge when learning a whole new tech stack
 - My experience is heavily focused on backend development so implementing frontend functionality with Vue.js was a challenge (and a really fun one at that!)
 
 **Known Bugs:**
-- I used [this project board](https://github.com/AngelaGuardia/onramp-blog/projects/1) to track my work and keep track of any [known bugs](https://github.com/AngelaGuardia/onramp-blog/projects/1?card_filter_query=label%3Abug). You can look at the issue descriptions for details on the approaches I would take to solve these bugs. The most prominent being:
-    - The in-line edit feature does not retain the existing content of the post while editing - [issue #30](https://github.com/AngelaGuardia/onramp-blog/issues/30)
-    - The in-line edit feature shares a v-model with the 'Add Post' feature which seems to "duplicate" the input on the FE - [issue #29](https://github.com/AngelaGuardia/onramp-blog/issues/29)
+- I used [this project board](https://github.com/AngelaGuardia/onramp-blog/projects/1) to track my work and keep track of any [known bugs](https://github.com/AngelaGuardia/onramp-blog/projects/1?card_filter_query=label%3Abug). You can look at the issue descriptions for details on the approaches I would take to solve these bugs.
 
 **Future Improvements:**
 - You can find all tracked [enhancements](https://github.com/AngelaGuardia/onramp-blog/projects/1?card_filter_query=label%3Aenhancement) as issues on the project board. Here are the most prominent ones:
@@ -107,7 +106,7 @@ Unfortunately, I did not have time to add unit testing to this application. I tr
 
 - I started my project by creating User Stories to plan my work. This allowed me to keep the user experience at the forefront of all my development work.
 - I followed the REST convention when creating all my API points for ease of use and understanding for other developers that may look at this work. I also took the liberty of creating one non-RESTful endpoint to implement the favorites toogle functionality. I believe that web development best practices are important and should be followed as much as possible when applicable, but should also be approached with flexibility when the situation warrants it!
-- I attempted to keep my code DRY by using view partials but had issues with rendering them
+- I attempted to keep my code DRY by using view partials but had issues with rendering them. One major place where repeated code can be found is in all of the Favorites functionality. This code could use partials to DRY up the views and could use some more logic to DRY up the viewmodel.
 
 ## Feature Completion <a name="completion"></a>
 
