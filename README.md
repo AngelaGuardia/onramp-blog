@@ -78,11 +78,11 @@ The UI Design was focused on creating easy to find links and buttons for the use
 
 My initial database design included three tables, USERS, POSTS, and FAVORITES. Where USERS have many POSTS (that belong to users), and USERS have many favorites posts through FAVORITES (join table). The idea behind this design was to account for future scalability. By including a FAVORITES join table I could eventually allow users to favorite each other's posts and allow posts to be favorited by multiple users.
 
-[INITIAL DESIGN SCREENSHOT]
+![Initial](https://user-images.githubusercontent.com/47278429/104373663-95a02600-54d5-11eb-8548-8d06ea3a69c9.png)
 
 As the project developed, my database design changed. Since I used Okta for authentication, I no longer needed a USERS table. Additionally, given the time constraints I simplified the db design for this initial iteration by eliminating the FAVORITES table. Instead, I added a favorites column to the posts table that holds a boolean. This made the implementation of the favorites feature easier for the time being.  
 
-[FINAL DESIGN SCREENSHOT]
+![Final](https://user-images.githubusercontent.com/47278429/104373670-9769e980-54d5-11eb-801b-55f383faa476.png)
 
 One major improvement I would like to make to this application is eliminating the use of raw sequel to query the database. This can be done by using an ORM like Sequelize.
 
