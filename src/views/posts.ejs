@@ -42,10 +42,10 @@
                           <template v-if="postEditingId == post.id">
                             <td>
                               <div class="input-field">
-                                <input type="text" v-model="title" :id="`title-edit-${post.id}`"  @keydown.enter="editPost(post.id)" v-bind:value="`${post.title}`">
+                                <input type="text" v-model="post.title" :id="`title-edit-${post.id}`"  @keydown.enter="editPost(post.id)" v-bind:value="`${post.title}`">
                               </div>
                             </td>
-                            <td><input type="text" v-model="content" :id="`content-edit-${post.id}`"  @keydown.enter="editPost(post.id)" v-bind:value="`${post.content}`"></td>
+                            <td><input type="text" v-model="post.content" :id="`content-edit-${post.id}`"  @keydown.enter="editPost(post.id)" v-bind:value="`${post.content}`"></td>
                             <td>{{ post.updated_at.slice(0,10) }}</td>
                           </template>
                           <template v-else>
