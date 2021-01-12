@@ -72,7 +72,7 @@ PGPORT=5432
 
 The UI Design was focused on creating easy to find links and buttons for the user to easily see all the actions they could perform on a specific post. Given that I have a deeper understanding of the backend than the frontend of web development, I focused the UI design heavily on the initial tutorial that I followed to build the app. I added features progressively to meet all requirements and make the app intuitive for all users.
 
-[INSERT GIF]
+![ONRAMPBLOG1](https://user-images.githubusercontent.com/47278429/104373911-f3cd0900-54d5-11eb-96e3-a0a4ed1db076.gif)
 
 ## DB Design <a name="db"></a>
 
